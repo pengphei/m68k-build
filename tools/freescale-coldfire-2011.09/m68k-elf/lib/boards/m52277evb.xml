@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M52277EVB
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M52277EVB
+CPU:	5227x
+    </description>
+    <property name="core">
+      v2
+    </property>
+    <property name="cache"/>
+  </properties>
+  <initialize>
+    <write-register address="RAMBAR1" value="0x80000021"/>
+
+    <!-- Init CS0 -->
+    <write-memory address="0xfc008000" value="0x00000000"/>
+    <write-memory address="0xfc008008" value="0x00001fa0"/>
+    <write-memory address="0xfc008004" value="0x00ff0001"/>
+
+    <!-- SDRAM Initialization  -->
+    <delay time="10ms"/>
+
+    <!-- SDCS0 -->
+    <write-memory address="0xfc0b8110" value="0x40000019"/>
+    <!-- SDCFG1 -->
+    <write-memory address="0xfc0b8008" value="0x43711630"/>
+    <!-- SDCFG2 -->
+    <write-memory address="0xfc0b800c" value="0x56670000"/>
+
+    <!-- Issue PALL  -->
+    <write-memory address="0xfc0b8004" value="0xe1092002"/>
+    <!-- Issue LEMR  -->
+    <write-memory address="0xfc0b8000" value="0x00cd0000"/>
+
+    <delay time="10ms"/>
+
+    <!-- Issue PALL  -->
+    <write-memory address="0xfc0b8004" value="0xe1092002"/>
+
+    <!-- Perform two refresh cycles -->
+    <write-memory address="0xfc0b8004" value="0xe1092004"/>
+    <write-memory address="0xfc0b8004" value="0xe1092004"/>
+
+    <!-- SDCR -->
+    <write-memory address="0xfc0b8004" value="0x71002c00"/>
+    <delay time="10ms"/>
+
+    <!-- Copyback unified cache -->
+    <write-register address="CACR" value="0x81000100"/>
+    <write-register address="ACR0" value="0xe01fc040"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="16M" type="flash" device="cfi">
+      <description>
+	16 MBytes External Flash
+      </description>
+    </memory-device>
+    <memory-device address="0x40000000" size="64M" type="ram">
+      <description>
+	64 MBytes DDR SDRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x80000000" size="128K" type="ram">
+      <description>
+	128 KBytes Internal SRAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 11b700b684287ec8171360752362 -->

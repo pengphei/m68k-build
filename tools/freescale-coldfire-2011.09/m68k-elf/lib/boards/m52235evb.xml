@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M52235EVB (20MHz)
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M52235EVB (20MHz)
+CPU:	52235
+    </description>
+    <property name="system-clock">
+      20MHz
+    </property>
+    <property name="core">
+      v2
+    </property>
+  </properties>
+  <initialize>
+    <write-register address="RAMBAR1" value="0x20000021"/>
+    <write-register address="FLASHBAR" value="0x21"/>
+    <!-- Enable PST[3:0] signals -->
+    <write-memory address="0x40100074" value="0xf" bits="8"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="256K" type="flash" device="cfm">
+      <description>
+	256 KBytes Internal Flash
+      </description>
+    </memory-device>
+    <memory-device address="0x20000000" size="32K" type="ram">
+      <description>
+	32 KBytes Internal SRAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 83e08325c3cdb03390833188 -->

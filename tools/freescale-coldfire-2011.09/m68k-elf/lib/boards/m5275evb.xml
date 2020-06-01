@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M5275EVB
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M5275EVB
+CPU:	5275
+    </description>
+    <property name="core">
+      v2
+    </property>
+    <property name="cache"/>
+  </properties>
+  <initialize>
+    <delay time="200ms"/>
+    <write-register address="RAMBAR1" value="0x20000001"/>
+    <!-- SYNCR=150MHz -->
+    <write-memory address="0x40120000" value="0x1000000"/>
+    <delay time="1000ms"/>
+    <!-- Set PAR_SDRAM -->
+    <write-memory address="0x40100080" value="0x3ff" bits="16"/>
+    <!-- Disable WCR -->
+    <write-memory address="0x40140000" value="0x0" bits="16"/>
+    <!-- CS0 -->
+    <write-memory address="0x40000080" value="0xffe0" bits="16"/>
+    <write-memory address="0x40000084" value="0x1f0001"/>
+    <write-memory address="0x4000008a" value="0x1980" bits="16"/>
+    <delay time="100ms"/>
+    <!-- Set up CS0 address space -->
+    <write-memory address="0x40000050" value="0x0"/>
+    <write-memory address="0x40000054" value="0xfc0001"/>
+    <write-memory address="0x40000048" value="0x83711630"/>
+    <write-memory address="0x4000004c" value="0x46b70000"/>
+    <!-- INIT_MD & CKE bits -->
+    <write-memory address="0x40000044" value="0xc0000000"/>
+    <!-- Set SW_PRE bit and issue PALL command -->
+    <write-memory address="0x40000044" value="0xc0000002"/>
+    <write-memory address="0x00000000" value="0"/>
+    <!-- Set SW_MOD bit and issue EMRS command -->
+    <write-memory address="0x40000040" value="0x40010000"/>
+    <write-memory address="0x00000000" value="0"/>
+    <!-- Issue MRS command -->
+    <write-memory address="0x40000040" value="0x58d0000"/>
+    <write-memory address="0x00000000" value="0"/>
+    <!-- wait for DLL -->
+    <delay time="1000ms"/>
+    <!-- Clear SW_MOD bit -->
+    <write-memory address="0x40000040" value="0x58c0000"/>
+    <!-- Set SW_PRE bit -->
+    <write-memory address="0x40000044" value="0xc0000002"/>
+    <write-memory address="0x00000000" value="0"/>
+    <!-- Clear SW_PRE bit -->
+    <write-memory address="0x40000044" value="0xc0000000"/>
+    <!-- Set SW_REF bit -->
+    <write-memory address="0x40000044" value="0xc0000004"/>
+    <write-memory address="0x00000000" value="0"/>
+    <write-memory address="0x00000000" value="0"/>
+    <!-- Set SW_MOD bit -->
+    <write-memory address="0x40000040" value="0x18d0000"/>
+    <write-memory address="0x00000000" value="0"/>
+    <!-- Clear SW_MOD bit -->
+    <write-memory address="0x40000040" value="0x18c0000"/>
+    <!-- Clear INIT_MD bit -->
+    <write-memory address="0x40000044" value="0x40000004"/>
+    <!-- Clear MODE_EN -->
+    <write-memory address="0x40000044" value="0x51090c00"/>
+    <delay time="100ms"/>
+    <write-memory address="0x40140000" value="0x0" bits="16"/>
+
+    <write-register address="ACR0" value="0x4000c040"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="16M" type="ram">
+      <description>
+	16 MBytes SRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x20000000" size="64K" type="ram">
+      <description>
+	64 KBytes Internal SRAM
+      </description>
+    </memory-device>
+    <memory-device address="0xFFE00000" size="2M" type="flash" device="cfi">
+      <description>
+	2 MBytes External Flash
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 74e9682e36dd5d0b049 -->

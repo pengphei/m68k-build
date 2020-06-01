@@ -1,0 +1,3 @@
+/home/kurain/build/m68k-build/examples/m5282lite/hello/build/CMakeFiles/rebuild_cache.dir
+/home/kurain/build/m68k-build/examples/m5282lite/hello/build/CMakeFiles/edit_cache.dir
+/home/kurain/build/m68k-build/examples/m5282lite/hello/build/CMakeFiles/m5282lite.dir

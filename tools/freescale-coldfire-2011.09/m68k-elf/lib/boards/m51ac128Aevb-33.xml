@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale MCF51AC128A (33MHz)
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale MCF51AC128A (33MHz)
+CPU:	51ac
+    </description>
+    <property name="system-clock">
+      33485KHz
+    </property>
+    <property name="core">
+      v1
+    </property>
+  </properties>
+  <initialize>
+    <!-- disable the watchdog timer in SOPT1 -->
+    <write-memory address="0xffff9802" value="0x10" bits="8"/>
+    <!-- MCGTRM: TRIM:0x80 -->
+    <write-memory address="0xffff804a" value="0x80" bits="8"/>
+    <!-- MCGSC: 0000000 FTRIM:0 -->
+    <write-memory address="0xffff804b" value="0x00" bits="8"/>
+    <!-- Wait for FLL to lock on frequency -->
+    <delay time="200ms"/>
+    <!-- MCGC4: 00; DMX32:0; 000; DRS:01; -->
+    <write-memory address="0xffff804d" value="0x01" bits="8"/>
+    <!-- Wait for FLL to change frequency scale -->
+    <delay time="100ms"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="128K" type="flash" device="cfm">
+      <description>
+	128KBytes Flash
+      </description>
+    </memory-device>
+    <memory-device address="0x00800000" size="32K" type="ram">
+      <description>
+	32KBytes Internal RAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 423751f1c069b6566b7 -->

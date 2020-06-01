@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M5206eC3 Eval
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M5206eC3 Eval
+CPU:	5206e
+    </description>
+    <property name="core">
+      v2
+    </property>
+    <property name="cache"/>
+  </properties>
+  <initialize>
+    <write-register address="MBAR" value="0x20000001"/>
+    <write-register address="RAMBAR0" value="0x10000001"/>
+    <write-memory address="0x20000003" value="0x0" bits="8"/>
+    <write-memory address="0x20000014" value="0x85" bits="8"/>
+    <write-memory address="0x20000015" value="0x8b" bits="8"/>
+    <write-memory address="0x20000016" value="0x8e" bits="8"/>
+    <write-memory address="0x20000017" value="0x12" bits="8"/>
+    <write-memory address="0x20000018" value="0x95" bits="8"/>
+    <write-memory address="0x20000019" value="0x98" bits="8"/>
+    <write-memory address="0x2000001a" value="0x9f" bits="8"/>
+    <write-memory address="0x2000001b" value="0x1e" bits="8"/>
+    <write-memory address="0x2000001c" value="0x97" bits="8"/>
+    <write-memory address="0x2000001d" value="0x96" bits="8"/>
+    <write-memory address="0x2000001e" value="0x8c" bits="8"/>
+    <write-memory address="0x2000001f" value="0x8e" bits="8"/>
+    <write-memory address="0x20000020" value="0x8d" bits="8"/>
+    <write-memory address="0x20000036" value="0x0" bits="16"/>
+    <write-memory address="0x20000041" value="0x7" bits="8"/>
+    <write-memory address="0x200000ca" value="0x30" bits="16"/>
+    <write-memory address="0x20000064" value="0xffe0" bits="16"/>
+    <write-memory address="0x20000068" value="0xf0000"/>
+    <write-memory address="0x2000006e" value="0x3d83" bits="16"/>
+    <write-memory address="0x20000070" value="0xffdf" bits="16"/>
+    <write-memory address="0x20000074" value="0xbeff"/>
+    <write-memory address="0x2000007a" value="0x0" bits="16"/>
+    <write-memory address="0x2000007c" value="0x3000" bits="16"/>
+    <write-memory address="0x20000080" value="0x70000"/>
+    <write-memory address="0x20000086" value="0xd03" bits="16"/>
+    <write-memory address="0x20000088" value="0x4000" bits="16"/>
+    <write-memory address="0x2000008c" value="0xf0000"/>
+    <write-memory address="0x20000092" value="0x80" bits="16"/>
+    <write-memory address="0x20000094" value="0x0" bits="16"/>
+    <write-memory address="0x20000098" value="0x0"/>
+    <write-memory address="0x2000009e" value="0x0" bits="16"/>
+    <write-memory address="0x200000a0" value="0x0" bits="16"/>
+    <write-memory address="0x200000a4" value="0x0"/>
+    <write-memory address="0x200000aa" value="0x0" bits="16"/>
+    <write-memory address="0x200000ac" value="0x0" bits="16"/>
+    <write-memory address="0x200000b0" value="0x0"/>
+    <write-memory address="0x200000b6" value="0x0" bits="16"/>
+    <write-memory address="0x200000b8" value="0x0" bits="16"/>
+    <write-memory address="0x200000bc" value="0x0"/>
+    <write-memory address="0x200000c2" value="0x0" bits="16"/>
+    <write-memory address="0x200000c6" value="0x0" bits="16"/>
+    <write-memory address="0x20000046" value="0x0" bits="16"/>
+    <write-memory address="0x2000004a" value="0x5440" bits="16"/>
+    <write-memory address="0x2000004c" value="0x0" bits="16"/>
+    <write-memory address="0x20000050" value="0x3e0000"/>
+    <write-memory address="0x20000057" value="0x3" bits="8"/>
+    <write-memory address="0x20000058" value="0x0" bits="16"/>
+    <write-memory address="0x2000005c" value="0x0"/>
+    <write-memory address="0x20000063" value="0x0" bits="8"/>
+
+    <!-- Unified i&d cache -->
+    <write-register address="CACR" value="0x81000000"/>
+    <write-register address="ACR0" value="0x2000c040"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0xFFE00000" size="1M" type="flash" device="cfi">
+      <description>
+	1 MByte External Flash (two AM29LV004DT chips)
+      </description>
+    </memory-device>
+    <memory-device address="0x00000000" size="4M" type="ram">
+      <description>
+	4 MBytes ADRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x10000000" size="8K" type="ram">
+      <description>
+	8 KBytes Internal SRAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 3f440452f90b2566c780d3ab -->

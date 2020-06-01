@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale MCF51JG256
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale MCF51JG256
+CPU:	51jg
+    </description>
+    <property name="system-clock">
+      16742KHz
+    </property>
+    <property name="core">
+      v1
+    </property>
+  </properties>
+  <initialize>
+    <!-- disable the watchdog timer in SIM_SOPT1 -->
+    <write-memory address="0xffff80c0" value="0x00" bits="8"/>
+    <!-- MCG_C3: SCTRIM:0x40 -->
+    <write-memory address="0xffff81e2" value="0x40" bits="8"/>
+    <!-- MCG_C4: 0000000 SCFTRIM:0 -->
+    <write-memory address="0xffff81e3" value="0x00" bits="8"/>
+    <!-- Wait for FLL to lock on frequency -->
+    <delay time="300ms"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="256K" type="flash" device="cfp">
+      <property name="ftfl-base">
+	0xffff8380
+      </property>
+      <description>
+	256 KBytes Flash
+      </description>
+    </memory-device>
+    <memory-device address="0x00200000" size="32K" type="flash" device="cfp">
+      <property name="ftfl-base">
+	0xffff8380
+      </property>
+      <description>
+	32 KBytes FlexNVM
+      </description>
+    </memory-device>
+    <memory-device address="0x00280000" size="2K" type="ram">
+      <description>
+	2 KBytes FlexRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x00800000" size="64K" type="ram">
+      <description>
+	64 KBytes Internal RAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 3670b48713f8d2635263b823 -->

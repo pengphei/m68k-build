@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M5329EVB
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M5329EVB
+CPU:	5329
+    </description>
+    <property name="core">
+      v3
+    </property>
+    <property name="cache"/>
+  </properties>
+  <initialize>
+    <write-register address="RAMBAR1" value="0x80000221"/>
+
+    <!-- Disable watchdog timer  -->
+    <write-memory address="0xfc098000" value="0x0" bits="16"/>
+
+    <!-- Init CS0  -->
+    <write-memory address="0xfc008000" value="0x00000000"/>
+    <write-memory address="0xfc008008" value="0x00001fa0"/>
+    <write-memory address="0xfc008004" value="0x001f0001"/>
+
+    <!-- SDRAM Initialization  -->
+    <delay time="10ms"/>
+    <!-- SDCS0 -->
+    <write-memory address="0xfc0b8110" value="0x40000018"/>
+    <!-- SDCFG1 -->
+    <write-memory address="0xfc0b8008" value="0x53722730"/>
+    <!-- SDCFG2 -->
+    <write-memory address="0xfc0b800c" value="0x56670000"/>
+
+    <!-- Issue PALL  -->
+    <!-- SDCR -->
+    <write-memory address="0xfc0b8004" value="0xe1092002"/>
+
+    <!-- Issue LEMR  -->
+    <!-- SDMR -->
+    <write-memory address="0xfc0b8000" value="0x40010000"/>
+
+    <!-- Write mode register  -->
+    <!-- SDMR -->
+    <write-memory address="0xfc0b8000" value="0x58d0000"/>
+    <delay time="100ms"/>
+
+    <!-- Issue PALL  -->
+    <!-- SDCR -->
+    <write-memory address="0xfc0b8004" value="0xe1092002"/>
+
+    <!-- Perform two refresh cycles  -->
+    <!-- SDCR -->
+    <write-memory address="0xfc0b8004" value="0xe1092004"/>
+    <!-- SDCR -->
+    <write-memory address="0xfc0b8004" value="0xe1092004"/>
+    <!-- SDMR -->
+    <write-memory address="0xfc0b8000" value="0x018d0000"/>
+    <!-- SDCR -->
+    <write-memory address="0xfc0b8004" value="0x71092c00"/>
+    <delay time="10ms"/>
+
+    <!-- copyback unified cache -->
+    <write-register address="CACR" value="0x81000100"/>
+    <write-register address="ACR0" value="0xfc00c040"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="2M" type="flash" device="cfi">
+      <description>
+	2 MBytes External Flash
+      </description>
+    </memory-device>
+    <memory-device address="0x40000000" size="32M" type="ram">
+      <description>
+	32 MBytes DDR SDRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x80000000" size="32K" type="ram">
+      <description>
+	32 KBytes Internal SRAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: a706f711c0e5e5e34134e7237702 -->

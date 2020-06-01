@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/hello.h
+mcf5282_clock.h
+../inc/mcf5282_clock.h
+mcf5282_uart.h
+../inc/mcf5282_uart.h
+mcf5282_gpio.h
+../inc/mcf5282_gpio.h
+
+../inc/mcf5282_clock.h
+
+../inc/mcf5282_gpio.h
+
+../inc/mcf5282_uart.h
+
+/home/kurain/build/m68k-build/examples/m5282lite/hello/src/cf-crt1.c
+stdlib.h
+-
+string.h
+-
+
+/home/kurain/build/m68k-build/examples/m5282lite/hello/src/cf-isrs.c
+
+/home/kurain/build/m68k-build/examples/m5282lite/hello/src/hello.c
+hello.h
+/home/kurain/build/m68k-build/examples/m5282lite/hello/src/hello.h
+

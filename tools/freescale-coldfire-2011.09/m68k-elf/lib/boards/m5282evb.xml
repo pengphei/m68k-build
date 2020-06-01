@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M5282EVB
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M5282EVB
+CPU:	5282
+    </description>
+    <property name="system-clock">
+      80MHz
+    </property>
+    <property name="core">
+      v2
+    </property>
+    <property name="cache"/>
+  </properties>
+  <initialize>
+    <!-- set BMT to fastest rate -->
+    <write-memory address="0x40110004" value="0x8fff" bits="16"/>
+    <write-register address="RAMBAR1" value="0x20000001"/>
+    <write-register address="FLASHBAR" value="0xf0000001"/>
+    <!-- PBCDPAR -->
+    <write-memory address="0x40100050" value="0xc0" bits="8"/>
+    <!-- CSAR0 -->
+    <write-memory address="0x40000080" value="0xffe0" bits="16"/>
+    <!-- CSMR0 -->
+    <write-memory address="0x40000084" value="0x1f0001"/>
+    <!-- CSCR0 -->
+    <write-memory address="0x4000008a" value="0x1980" bits="16"/>
+    <delay time="100ms"/>
+    <!-- DCR -->
+    <write-memory address="0x40000040" value="0x23c" bits="16"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x1300"/>
+    <!-- DMR0 -->
+    <write-memory address="0x4000004c" value="0xfc0001"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x1308"/>
+    <write-memory address="0x00000000" value="0x0"/>
+    <delay time="200ms"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x9308"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x9348"/>
+    <write-memory address="0x0" value="0x0"/>
+    <delay time="300ms"/>
+    <write-memory address="0x0" value="0x0"/>
+    <delay time="300ms"/>
+    <!-- disable watchdog -->
+    <write-memory address="0x40140000" value="0x0" bits="16"/>
+
+    <write-register address="CACR" value="0x81000000"/>
+    <write-register address="ACR0" value="0x4000c040"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="16M" type="ram">
+      <description>
+	16 MBytes SRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x20000000" size="64K" type="ram">
+      <description>
+	64 KBytes Internal SRAM
+      </description>
+    </memory-device>
+    <memory-device address="0xf0000000" size="512K" type="flash" device="cfm">
+      <description>
+	512 KBytes Internal Flash
+      </description>
+    </memory-device>
+    <memory-device address="0xFFE00000" size="2M" type="flash" device="cfi">
+      <description>
+	2 MBytes External Flash
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 3cef166349ddc5f62bb0e47 -->

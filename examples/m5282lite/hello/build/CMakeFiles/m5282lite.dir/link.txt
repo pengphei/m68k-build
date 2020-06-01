@@ -1,0 +1,1 @@
+/home/kurain/build/m68k-build/tools/m68k-elf/bin/m68k-elf-gcc -O3 -Wall -Wunused-function --std=gnu99  -m528x;-T$(LDSCRIPT);-fno-builtin;-ffreestanding;-nostdinc;-Wl,-Map=$(PROJECT).map,--cref,--no-warn-mismatch -rdynamic CMakeFiles/m5282lite.dir/src/cf-crt1.c.o CMakeFiles/m5282lite.dir/src/cf-isrs.c.o CMakeFiles/m5282lite.dir/src/hello.c.o  -o m5282lite 

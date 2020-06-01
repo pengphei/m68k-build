@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M5235EVB
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M5235EVB
+CPU:	5235
+    </description>
+    <property name="core">
+      v2
+    </property>
+    <property name="cache"/>
+  </properties>
+  <initialize>
+    <write-register address="RAMBAR1" value="0x20000021"/>
+    <!-- Enable PST[3:0] signals -->
+    <write-memory address="0x40100051" value="0xf" bits="8"/>
+    <!-- Set PAR_SDRAM to allow SDRAM signals to be enabled -->
+    <write-memory address="0x40100046" value="0x3f" bits="8"/>
+    <!-- Set PAR_AD to allow 32-bit SDRAM if the external boot device is 16-bits -->
+    <write-memory address="0x40100040" value="0xe1" bits="8"/>
+    <!-- 1MB ASRAM on CS1 at 0x30000000 -->
+    <!-- CSAR1 -->
+    <write-memory address="0x4000008c" value="0x3000" bits="16"/>
+    <!-- CSMR1 -->
+    <write-memory address="0x40000090" value="0xf0001"/>
+    <!-- CSCR1 -->
+    <write-memory address="0x40000096" value="0x3d20" bits="16"/>
+    <!-- 2MB FLASH on CS0 at 0xFFE00000 -->
+    <!-- CSAR0 -->
+    <write-memory address="0x40000080" value="0xffe0" bits="16"/>
+    <!-- CSMR0 -->
+    <write-memory address="0x40000084" value="0x1f0001"/>
+    <!-- CSCR0 -->
+    <write-memory address="0x4000008a" value="0x1980" bits="16"/>
+    <delay time="100ms"/>
+    <!-- Setup SDRAM access -->
+    <!-- DCR -->
+    <write-memory address="0x40000040" value="0x446" bits="16"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x2300"/>
+    <!-- DMR0 -->
+    <write-memory address="0x4000004c" value="0xfc0001"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x2308"/>
+    <write-memory address="0x00000000" value="0x0"/>
+    <delay time="200ms"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x9308"/>
+    <!-- DACR0 -->
+    <write-memory address="0x40000048" value="0x9348"/>
+    <write-memory address="0x400" value="0x0"/>
+    <delay time="300ms"/>
+    <write-memory address="0x400" value="0x0"/>
+    <delay time="300ms"/>
+    <!-- disable the watchdog timer in WCR -->
+    <write-memory address="0x40140000" value="0x0" bits="16"/>
+
+    <!-- Unified i&d cache -->
+    <write-register address="CACR" value="0x81000000"/>
+    <write-register address="ACR0" value="0x4000c040"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="16M" type="ram">
+      <description>
+	16 MBytes SDRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x20000000" size="64K" type="ram">
+      <description>
+	64 KBytes Internal SRAM
+      </description>
+    </memory-device>
+    <memory-device address="0xFFE00000" size="2M" type="flash" device="cfi">
+      <description>
+	2 MBytes External Flash
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 3be4825310325dc676556165 -->

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale MCF51AG128
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale MCF51AG128
+CPU:	51ag
+    </description>
+    <property name="system-clock">
+      16742KHz
+    </property>
+    <property name="core">
+      v1
+    </property>
+    <property name="gen2008-timer"/>
+  </properties>
+  <initialize>
+    <!-- Unlock the watchdog timer control registers (WDOG_UNLOCK) -->
+    <write-memory address="0xffff988e" value="0xc520" bits="16"/>
+    <write-memory address="0xffff988e" value="0xd928" bits="16"/>
+    <!-- Disable the watchdog timer (WDOG_ST_CTRL_H) -->
+    <write-memory address="0xffff9880" value="0x00d2" bits="16"/>
+    <!-- ICSTRM: TRIM:0x80 -->
+    <write-memory address="0xffff8026" value="0x80" bits="8"/>
+    <!-- ICGSC: 0000000 FTRIM:0 -->
+    <write-memory address="0xffff8027" value="0x00" bits="8"/>
+    <!-- Wait for FLL to lock on frequency -->
+    <delay time="300ms"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0x00000000" size="128K" type="flash" device="cfm">
+      <description>
+	128KBytes Flash
+      </description>
+    </memory-device>
+    <memory-device address="0x00800000" size="16K" type="ram">
+      <description>
+	16KBytes Internal RAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 55670274466a36fad626f2 -->

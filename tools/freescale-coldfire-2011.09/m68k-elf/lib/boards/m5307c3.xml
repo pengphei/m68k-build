@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE board SYSTEM "board.dtd">
+<!-- Description for Freescale M5307C3 Eval
+
+     Version: Sourcery CodeBench Lite 2011.09-21
+     Support: https://support.codesourcery.com/GNUToolchain/
+
+     Copyright (c) 2007, 2008, 2009, 2010 CodeSourcery, Inc.
+
+     THIS FILE CONTAINS PROPRIETARY, CONFIDENTIAL, AND TRADE SECRET
+     INFORMATION OF CODESOURCERY AND/OR ITS LICENSORS.
+
+     You may not use or distribute this file without the express written
+     permission of CodeSourcery or its authorized distributor.  This file is
+     licensed only for use with Sourcery CodeBench.  No other use is permitted.
+     -->
+<board>
+  <properties>
+    <description>
+      Board:	Freescale M5307C3 Eval
+CPU:	5307
+    </description>
+    <property name="core">
+      v3
+    </property>
+    <property name="cache"/>
+  </properties>
+  <initialize>
+    <write-register address="MBAR" value="0x10000001"/>
+    <write-register address="RAMBAR0" value="0x20000001"/>
+    <!-- Chip-selects -->
+    <write-memory address="0x10000098" value="0xfe00" bits="16"/>
+    <write-memory address="0x100000a2" value="0x1918" bits="16"/>
+    <write-memory address="0x1000009c" value="0x1000001"/>
+    <write-memory address="0x10000080" value="0xffe0" bits="16"/>
+    <write-memory address="0x1000008a" value="0xd80" bits="16"/>
+    <write-memory address="0x10000084" value="0xf0001"/>
+    <!-- Initialize the SDRAM address mux -->
+    <write-memory address="0x10000004" value="0xff00" bits="16"/>
+    <write-memory address="0x10000244" value="0xffff" bits="16"/>
+    <write-memory address="0x10000248" value="0x1" bits="16"/>
+    <!-- SDRAM -->
+    <write-memory address="0x10000100" value="0x822a" bits="16"/>
+    <write-memory address="0x10000108" value="0x1404"/>
+    <write-memory address="0x10000110" value="0x801404"/>
+    <write-memory address="0x1000010c" value="0x7c0001"/>
+    <write-memory address="0x10000114" value="0x7c0001"/>
+    <write-memory address="0x10000108" value="0x140c"/>
+    <write-memory address="0x10000110" value="0x80140c"/>
+    <write-memory address="0x00000000" value="0xa5a5a5a5"/>
+    <write-memory address="0x800000" value="0xa5a5a5a5"/>
+    <write-memory address="0x10000108" value="0x9404"/>
+    <write-memory address="0x10000110" value="0x809404"/>
+    <delay time="200ms"/>
+    <write-memory address="0x10000108" value="0x9444"/>
+    <write-memory address="0x10000110" value="0x809444"/>
+    <write-memory address="0x400" value="0xa5a5a5a5"/>
+    <write-memory address="0x800400" value="0xa5a5a5a5"/>
+    <delay time="200ms"/>
+
+    <!-- copyback unified cache -->
+    <write-register address="CACR" value="0x81000100"/>
+    <write-register address="ACR0" value="0x1000c040"/>
+  </initialize>
+  <memory-map>
+    <memory-device address="0xFFE00000" size="1M" type="flash" device="cfi">
+      <description>
+	1 MBytes External Flash
+      </description>
+    </memory-device>
+    <memory-device address="0x00000000" size="16M" type="ram">
+      <description>
+	16 MBytes SDRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x30000000" size="512K" type="ram">
+      <description>
+	512 KBytes SRAM
+      </description>
+    </memory-device>
+    <memory-device address="0x20000000" size="4K" type="ram">
+      <description>
+	4 KBytes Internal SRAM
+      </description>
+    </memory-device>
+  </memory-map>
+</board>
+<!-- checksum: 2a67e47f37ad72a6b0fea1c5 -->
